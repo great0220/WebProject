@@ -1,4 +1,4 @@
-package webshop.utils;
+package cn.iwars.webproject.utils;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 

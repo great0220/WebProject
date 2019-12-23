@@ -1,7 +1,7 @@
-package webshop.dao;
+package cn.iwars.webproject.dao;
 
-import cn.iwars.webshop.entity.ShopUser;
-import cn.iwars.webshop.utils.DataSourceUtils;
+import cn.iwars.webproject.entity.ShopUser;
+import cn.iwars.webproject.utils.DataSourceUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 

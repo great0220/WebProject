@@ -1,4 +1,4 @@
-package webshop.entity;
+package cn.iwars.webproject.entity;
 
 import java.io.Serializable;
 

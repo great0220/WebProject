@@ -1,14 +1,16 @@
-package webshop.service;
+package cn.iwars.webproject.service;
 
-import cn.iwars.webshop.dao.UserDao;
-import cn.iwars.webshop.entity.ShopUser;
+
+
+import cn.iwars.webproject.dao.UserDao;
+import cn.iwars.webproject.entity.ShopUser;
 
 import java.sql.SQLException;
 
 public class UserService {
 
 
-    public ShopUser login(String username,String password) {
+    public ShopUser login(String username, String password) {
         ShopUser shopUser = null;
         UserDao userDao = new UserDao();
         try {

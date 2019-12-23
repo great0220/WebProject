@@ -1,8 +1,8 @@
-package webshop.servlet;
+package cn.iwars.webproject.web.servlet;
 
-import cn.iwars.webshop.entity.ShopUser;
-import cn.iwars.webshop.service.UserService;
-import cn.iwars.webshop.utils.UUIDUtils;
+import cn.iwars.webproject.entity.ShopUser;
+import cn.iwars.webproject.service.UserService;
+import cn.iwars.webproject.utils.UUIDUtils;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.ServletException;
