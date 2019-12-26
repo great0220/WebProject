@@ -15,61 +15,83 @@
 	function changeImg(obj) {
 		obj.src="${pageContext.request.contextPath}/checkImgServlet?random=" + Math.random();
 	}
-	$(function(){
-		$("#register").validate({
-			rules:{
-				"username":{
-					"required":true
-				},
-				"password":{
-					"required":true,
-					"rangelength":[6,12]
-				},
-				"repassword":{
-					"required":true,
-					"rangelength":[6,12],
-					"equalTo":"#password"
-				},
-				"email":{
-					"required":true,
-					"email":true
-				},
-				"sex":{
-					"required":true
-				},
-				"birthday":{
-					"required":true
-				}
+	$.validator.addMethod(
+			"checkUsername", //校验规则名称
+			function(value,element,params){   //校验函数
+				//value:输入的内容
+				//element:被校验的元素对象
+				//params：规则对应的参数值
+				//目的：对输入的username进行ajax校验
+				var flag = false; //定义一个标志
 
-			},
-			messages:{
-				"username":{
-					"required":"用户名不能为空"
-				},
-				"password":{
-					"required":"密码不能为空",
-					"rangelength":"密码必须是6-12位"
-				},
-				"repassword":{
-					"required":"密码不能为空",
-					"rangelength":"密码必须是6-12位",
-					"equalTo":"两次输入的密码不一致"
-				},
-				"email":{
-					"required":"邮箱不能为空",
-					"email":"邮箱格式不正确"
-				},
-				"sex":{
-					"required":"性别不能为空"
-				},
-				"birthday":{
-					"required":"生日不能为空"
-				}
+				//ajax校验
+				$.ajax({
+					"async":false,
+					"data":{"username":value},
+					"type":"POST",
+					"url":"${pageContext.request.contextPath}/userServlet?method=checkUserName",
+					"dataType":"json",
+					"success":function(data){
+						flag = data.isExit
+					}
+
+				});
+				//返回false代表该校验器不通过
+				return !flag;
 			}
+	);
+	//表单校验
+	$(function() {
 
-		});
+		$(".form-horizontal").validate(
+				{
+					rules:{
+						"username":{
+							"required":true,
+							"checkUsername":true
+						},
+						"password":{
+							"required":true,
+							"rangelength":[6,12]
+						},
+						"repassword":{
+							"required":true,
+							"equalTo":"#inputPassword3"
+						},
+						"email":{
+							"required":true,
+							"email":true
+						},
+						"sex":{
+							"required":true
+						}
+					},
+					messages:{
+						"username":{
+							"required":"用户名不能为空",
+							"checkUsername":"用户名已存在"
+
+						},
+						"password":{
+							"required":"密码不能为空",
+							"rangelength":"密码长度6-12位"
+						},
+						"repassword":{
+							"required":"确认密码不能为空",
+							"equalTo":"两次输入的密码必须一致"
+						},
+						"email":{
+							"required":"email不能为空",
+							"email":"请输入正确的email格式xxx@zz.cc"
+						},
+						"sex":{
+							"required":"性别必须勾选"
+						}
+					}
+				}
+
+		);
 	});
-
 </script>
 <style>
 	body {

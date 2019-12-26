@@ -118,11 +118,8 @@ public class UserServlet extends BaseServlet {
         if ("" != username) {
             UserService userService = new UserService();
             Boolean result = userService.checkUserName(username);
-            if (result) {
-                response.getWriter().write(1);
-            } else {
-                response.getWriter().write(0);
-            }
+            String json = "{\"isExit\":" + result + "}";
+            response.getWriter().write(json);
         }
     }
 
