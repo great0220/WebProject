@@ -29,15 +29,41 @@ public class UserDao {
 
     /**
      * 用户注册
-     * @param user  User
+     *
+     * @param user User
      * @return 注册结果
-     * @throws SQLException  异常
+     * @throws SQLException 异常
      */
     public boolean save(ShopUser user) throws SQLException {
         QueryRunner runner = new QueryRunner();
-        String sql = "insert into user (?,?,?,?,?,?,?,?,?,?)";
-        int save = runner.update(sql, user.getUid(), user.getUsername(), user.getPassword(), user.getName(), user.getEmail(), user.getTelephone(),
+        String sql = "insert into user values (?,?,?,?,?,?,?,?,?,?)";
+        int save = runner.update(connection, sql, user.getUid(), user.getUsername(), user.getPassword(), user.getName(), user.getEmail(), user.getTelephone(),
                 user.getBirthday(), user.getSex(), user.getState(), user.getCode());
+        if (save > 0) {
+            return true;
+        }
+        return false;
+
+    }
+
+    public ShopUser getUserByUsername(String username) throws SQLException {
+        QueryRunner queryRunner = new QueryRunner();
+        String sql = "select * from user where username = ?";
+        ShopUser shopUser = queryRunner.query(connection, sql, new BeanHandler<ShopUser>(ShopUser.class), username);
+        return shopUser;
+    }
+
+    public ShopUser findShopUserByActiveCode(String activeCode) throws SQLException {
+        QueryRunner queryRunner = new QueryRunner();
+        String sql = "select * from user where code = ?";
+        ShopUser shopUser = queryRunner.query(connection, sql, new BeanHandler<ShopUser>(ShopUser.class), activeCode);
+        return shopUser;
+    }
+
+    public Boolean updateUser(int state, String activeCode) throws SQLException {
+        QueryRunner queryRunner = new QueryRunner();
+        String sql = "update user set state = ? where code = ?";
+        int save = queryRunner.update(connection, sql, state, activeCode);
         if (save > 0) {
             return true;
         }

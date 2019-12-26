@@ -14,6 +14,7 @@
 		<ol class="list-inline">
 			<c:if test="${!empty shopUser}">
 				<li>欢迎您${shopUser.username}</li>
+				<li><a href="${pageContext.request.contextPath}/userServlet?method=logout">退出</a></li>
 			</c:if>
 			<c:if test="${empty shopUser}">
 				<li><a href="login.jsp">登录</a></li>
